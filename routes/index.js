@@ -1,8 +1,22 @@
+const express = require('express');
+const usersRouter = require("../routes/users");
+const clothesRouter = require("../routes/clothingItems");
 const app = express();
-const port = 3000;
 
-// Middleware to parse JSON bodies
-app.use(bodyParser.json());
+const {PORT = 3001} = process.env
 
-// Middleware to parse cookies
-app.use(cookieParser());
+app.use(express.json());
+app.use((req, res, next) => {
+  req.user = {
+    _id: '667c359e53552147484e8423'
+  };
+  next();
+});
+app.use(clothesRouter);
+app.use(usersRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+module.exports = app;

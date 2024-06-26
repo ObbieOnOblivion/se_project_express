@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({ // what id i want to not use the new keyword
   name: {
     type: String,
     minlength: 2,
@@ -11,7 +12,7 @@ const userSchema = mongoose.Schema({
   avatar: {
     type: String,
     minlength: 2,
-    required: true,
+    required: [true, 'this is a required field'],
     validate: {
       validator(value) {
         return validator.isURL(value);
@@ -21,6 +22,6 @@ const userSchema = mongoose.Schema({
   }
 });
 
-const user = mongoose.Model("users", userSchema)
+const user = mongoose.model("users", userSchema)
 
 module.exports = user;

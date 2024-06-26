@@ -1,15 +1,14 @@
-const clothsRouter = require('express').Router();
+const express = require('express');
+const clothesRouter = express.Router();
+const {getClothes, addCloths, getClothingItem, deleteClothingItem} = require('../controllers/clothingItems');
 
-clothsRouter.get('/items', (req, res)=>{
-  res.send("grab the user model")
-})
 
-clothsRouter.post('/items', (req, res)=>{
-  res.send("grab the user model")
-})
+clothesRouter.get('/items', getClothes);
 
-clothsRouter.delete('/items', (req, res)=>{
-  res.send("grab the user model")
-})
+clothesRouter.get('/items/:itemId', getClothingItem)
 
-module.exports = clothsRouter
+clothesRouter.post('/items', addCloths);
+
+clothesRouter.delete('/items/:itemId', deleteClothingItem);
+
+module.exports = clothesRouter;
