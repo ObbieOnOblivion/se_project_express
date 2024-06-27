@@ -1,4 +1,5 @@
 const user = require("../models/users");
+
 const errorHandler = require("../utils/error")
 
 const getUsers = (req, res) => {
@@ -19,8 +20,8 @@ const createUser = (req, res) => {
 
 const getUser = (req, res) => {
   const { userId } = req.params;
-  user.findById(userId).then((user) => {
-    res.status(200).send(user)
+  user.findById(userId).then((item) => {
+    res.status(200).send(item)
   }).catch((error) => { errorHandler(error, res) })
 }
 

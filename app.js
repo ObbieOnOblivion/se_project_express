@@ -9,5 +9,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db').then(
   console.error()
 )
 
+app.use("/test", (req, res) =>{
+  res.send("<h3> this is a new form</h3>")
+});
+
 
 
