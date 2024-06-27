@@ -1,9 +1,11 @@
-const handleErrors = (err, res) =>{
-  console.error(err.message)
-  if (err.name){
-    return res.status(400).send({message: err.message, name: err.name})
+const handleErrors = (err, res) => {
+  if (err.name !== "CastError") {
+    return res.status(400).send({ message: err.message, name: err.name })
   }
-  return res.status(500)
+  if (err.name) {
+    res.status(404).send({ message: "Oops, it looks like the items does not exist!" })
+  }
+  return res.status(500).res.send({ message: "Oopsies! Something happened on our end" })
 
 }
 

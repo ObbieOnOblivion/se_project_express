@@ -1,9 +1,9 @@
 const express = require('express');
-const usersRouter = require("../routes/users");
-const clothesRouter = require("../routes/clothingItems");
+const usersRouter = require("./users");
+const clothesRouter = require("./clothingItems");
 const app = express();
 
-const {PORT = 3001} = process.env
+const { PORT = 3001 } = process.env
 
 app.use(express.json());
 app.use((req, res, next) => {
