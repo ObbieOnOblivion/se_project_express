@@ -1,17 +1,16 @@
+const express = require('express');
 const mongoose = require('mongoose');
-const app = require('./routes/index');
+const Router = require('./routes/index');
 
-mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db').then(
-  () => {
-    console.log("db is working");
-  }
-).catch(
-  console.error()
-)
+const app = express();
+const { PORT = 3001 } = process.env
 
-app.use("/test", (req, res) =>{
-  res.send("<h3> this is a new form</h3>")
-});
+
+mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db');
+
+app.use("/", Router);
+
+app.listen(PORT);
 
 
 

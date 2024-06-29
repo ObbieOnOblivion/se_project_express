@@ -1,11 +1,18 @@
+const BAD_REQUEST = 400;
+const DEFAULT = 500;
+const NOT_FOUND = 404;
+
 const handleErrors = (err, res) => {
-  if (err.name !== "CastError") {
-    return res.status(400).send({ message: err.message, name: err.name })
+  if (err.name === 'CastError') {
+    return res.status(BAD_REQUEST).send({ message: err.message, name: err.name })
   }
-  if (err.name) {
-    res.status(404).send({ message: "Oops, it looks like the items does not exist!" })
+  if (err.name === 'ValidationError') {
+    return res.status(BAD_REQUEST).send({ message: err.message, name: err.name })
   }
-  return res.status(500).res.send({ message: "Oopsies! Something happened on our end" })
+  if (err.name === 'DocumentNotFoundError') {
+    return res.status(NOT_FOUND).send({ message: err.message, name: err.name })
+  }
+  return res.status(DEFAULT).res.send({ message: "Oopsies! Something happened on our end" })
 
 }
 

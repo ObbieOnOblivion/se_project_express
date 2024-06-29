@@ -8,10 +8,4 @@ usersRouter.get('/users/:userId', getUser);
 
 usersRouter.post('/users', createUser);
 
-usersRouter.delete('/users/:userId', (req, res) => {
-  if (req.body) {
-    res.send("grab the user model");
-  }
-});
-
 module.exports = usersRouter;

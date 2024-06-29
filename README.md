@@ -1,9 +1,35 @@
-# WTWR (What to Wear?): Back End
-The back-end project is focused on creating a server for the WTWR application. You’ll gain a deeper understanding of how to work with databases, set up security and testing, and deploy web applications on a remote machine. The eventual goal is to create a server with an API and user authorization.
-## Running the Project
-`npm run start` — to launch the server 
+Description
 
-`npm run dev` — to launch the server with the hot reload feature
+The SE Project Express is a back-end project focused on creating a server for the WTWR application. The project aims to provide a deeper understanding of working with databases, setting up security, and deploying web applications on a remote machine. The server includes an API with user authorization.
 
-### Testing
-Before committing your code, make sure you edit the file `sprint.txt` in the root folder. The file `sprint.txt` should contain the number of the sprint you're currently working on. For ex. 12
+Features and usage: 
+1. Clone the repository: .zsh
+   git clone https://github.com/ObbieOnOblivion/se_project_express.git
+   cd se_project_express
+
+2. Install Dependancies: .zsh 
+   npm install
+
+3. MongoDB
+
+4. launch server:
+   npm run dev or npm run start
+
+
+API Endpoints
+
+Users:
+GET /users: Retrieve all users.
+GET /users/
+: Retrieve a user by ID.
+POST /users: Create a new user.
+
+
+Clothing Items:
+GET /items: Retrieve all clothing items.
+POST /items: Create a new clothing item.
+DELETE /items: Delete a clothing item.
+PUT /items/
+/likes: Add a like to a clothing item.
+DELETE /items/
+/likes: Remove a like from a clothing item.
