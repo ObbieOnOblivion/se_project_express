@@ -1,11 +1,18 @@
 const express = require('express');
-const { getUsers, createUser, getUser } = require('../controllers/users');
+
+const { verifyToken } = require('../middlewares/auth');
+
+const { getUsers, createUser, getUser, login, updateProfile } = require('../controllers/users');
 const usersRouter = express.Router();
 
-usersRouter.get('/users', getUsers); // error handling for when requests time out
+usersRouter.post('/signup', createUser);
 
-usersRouter.get('/users/:userId', getUser);
+usersRouter.post('/signin', login)
 
-usersRouter.post('/users', createUser);
+usersRouter.get('/users', getUsers);
+
+usersRouter.get('/users/me',verifyToken, getUser);
+
+usersRouter.patch('/users/me', verifyToken, updateProfile);
 
 module.exports = usersRouter;

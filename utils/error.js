@@ -1,8 +1,11 @@
 const BAD_REQUEST = 400;
 const DEFAULT = 500;
 const NOT_FOUND = 404;
+const UNAUTHORIZED = 401;
 
 const handleErrors = (err, res) => {
+  console.log(err.name);
+  console.log(err.message);
   if (err.name === 'CastError') {
     return res.status(BAD_REQUEST).send({ message: err.message, name: err.name })
   }
@@ -12,7 +15,10 @@ const handleErrors = (err, res) => {
   if (err.name === 'DocumentNotFoundError') {
     return res.status(NOT_FOUND).send({ message: err.message, name: err.name })
   }
-  return res.status(DEFAULT).res.send({ message: "Oopsies! Something happened on our end" })
+  if (err.message === 'Incorrect password') {
+    return res.status(UNAUTHORIZED).send({ message: err.message, name: err.name })
+  }
+  return res.status(DEFAULT).send({ message: "Oopsies! Something happened on our end" })
 
 }
 

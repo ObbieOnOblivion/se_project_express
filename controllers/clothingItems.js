@@ -28,16 +28,23 @@ const getClothingItem = (req, res) => {
     }).catch((error) => { errorHandler(error, res) });
 }
 
-const deleteClothingItem = (req, res) => {
+const deleteClothingItem = async (req, res) => {
   const { itemId } = req.params;
-  clothes.findByIdAndDelete(itemId)
-    .orFail()
-    .then((response) => {
-      res.status(200).send(response);
-    }
-    ).catch((error) => { errorHandler(error, res) });
+  if (itemId === req.user._id ) {
+    try {
+      const response = await clothes.findByIdAndDelete(itemId).orFail();
+      if (resposne){
+        return res.status(200).send(response);
+      }
+      return new error("Response Failed")
 
-}
+    } catch (error) {
+      errorHandler(error, res);
+    }
+  } else {
+    res.status(403).send({ message: 'Unauthorized' });
+  }
+};
 
 const likeImage = (req, res) => {
   const { itemId } = req.params;
