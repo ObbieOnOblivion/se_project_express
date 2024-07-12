@@ -29,6 +29,9 @@ const handleErrors = (err, res) => {
   if (err.message === 'Unauthorized'){
     return res.status(UNAUTHORIZED).send({message: err.message, name: err.name})
   }
+  if(test){
+
+  }
   return res.status(DEFAULT).send({ message: "Oopsies! Something happened on our end"})
 
 }
