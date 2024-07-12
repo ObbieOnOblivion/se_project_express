@@ -11,7 +11,7 @@ clothesRouter.get('/items', getClothes);
 
 clothesRouter.get('/items/:itemId', verifyToken, getClothingItem);
 
-clothesRouter.post('/items', verifyToken, addClothes); // addClothingItem
+clothesRouter.post('/items', verifyToken, addClothes);
 
 clothesRouter.put('/items/:itemId/likes', verifyToken, likeImage);
 

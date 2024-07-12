@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     minlength: 5,
-    maxlenth: 40,
+    maxlength: 40,
     required: true,
     validate: {
       validator(value) {
@@ -18,8 +18,6 @@ const userSchema = new mongoose.Schema({
 
   password: {
     type: String,
-    minlength: 5,
-    maxlenth: 40,
     required: true,
     select: false
   },
@@ -27,7 +25,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     minlength: 2,
-    maxlenth: 20,
+    maxlength: 20,
     required: true
   },
 

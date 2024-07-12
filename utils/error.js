@@ -6,8 +6,6 @@ const INVALIDAUTH = 401
 const CONFLICT = 409;
 
 const handleErrors = (err, res) => {
-  console.log(err.name);
-  console.log(err.message);
   if (err.name === 'CastError') {
     return res.status(BAD_REQUEST).send({ message: err.message, name: err.name })
   }
@@ -28,9 +26,6 @@ const handleErrors = (err, res) => {
   }
   if (err.message === 'Unauthorized'){
     return res.status(UNAUTHORIZED).send({message: err.message, name: err.name})
-  }
-  if(test){
-
   }
   return res.status(DEFAULT).send({ message: "Oopsies! Something happened on our end"})
 
