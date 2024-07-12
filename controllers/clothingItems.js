@@ -9,9 +9,11 @@ const getClothes = (req, res) => {
   }).catch((error) => { errorHandler(error, res) });
 }
 
-const addClothes = (req, res) => {
+const addClothes = (req, res) => { // my req.user is no longer working is it because req.user is only set to one router
   const { name, weather, imageUrl } = req.body;
-  clothes.create({ "name": name, "weather": weather, "imageUrl": imageUrl, "owner": req.user }).then((newItem) => {
+  console.log(req.user);
+  console.log("---------------------*------------------------")
+  clothes.create({ "name": name, "weather": weather, "imageUrl": imageUrl, "owner": req.user._xid }).then((newItem) => {
     res.status(201);
     res.send(newItem);
   }
@@ -30,7 +32,16 @@ const getClothingItem = (req, res) => {
 
 const deleteClothingItem = async (req, res) => {
   const { itemId } = req.params;
-  if (itemId === req.user._id ) {
+  const checkUser = () =>{
+    return clothes.findById(itemId)
+    .then((item) => {
+      if (item.owner == req.user._id){
+        return true;
+      }
+      return new error("Unauthorized")
+    })
+  }
+  if (checkUser()) {
     try {
       const response = await clothes.findByIdAndDelete(itemId).orFail();
       if (resposne){
@@ -41,8 +52,6 @@ const deleteClothingItem = async (req, res) => {
     } catch (error) {
       errorHandler(error, res);
     }
-  } else {
-    res.status(403).send({ message: 'Unauthorized' });
   }
 };
 

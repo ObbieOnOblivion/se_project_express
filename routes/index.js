@@ -2,14 +2,10 @@ const router = require("express").Router();
 const usersRouter = require("./users");
 const clothesRouter = require("./clothingItems");
 
-// router.use((req, res, next) => {
-//   req.user = {
-//     _id: '667c359e53552147484e8423'
-//   };
-//   next();
-// });
-
 router.use(clothesRouter);
 router.use(usersRouter);
+router.use((req,res) =>{
+  res.status(404).send("<h1> Besnon: Get to work or your fired!!!</h1>")
+})
 
 module.exports = router;

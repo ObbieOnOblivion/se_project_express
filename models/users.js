@@ -4,6 +4,7 @@ const validator = require('validator');
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
+    unique: true,
     minlength: 5,
     maxlenth: 40,
     required: true,
@@ -45,7 +46,8 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password, compareFunction) {
-  return this.findOne({ email })
+
+  return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
         return Promise.reject(new Error('Incorrect email'));
@@ -62,23 +64,14 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
 
 }
 
-userSchema.statics.changeUserCredentials = function changeUserCredentials(userId, name="", avatar=""){
-  // can i use a validator on the name and avatar to follow the schema rules
-  return this.findById(userId)
-  .then((user) => {
-    if (!user) {
-      return Promise.reject(new Error('Incorrect email'));
-    } else{
-      if (name.length >= 2){
-        user.name = name;
-      }
-      if (avatar.length >= 2){
-        user.avatar = avatar;
+userSchema.statics.changeUserCredentials = function changeUserCredentials(userId, name = "", avatar = "") {
+  return this.findByIdAndUpdate(userId, { "name": name, "avatar": avatar }, { new: true, runValidators: true })
+    .then((user) => {
+      if (!user) {
+        return Promise.reject(new Error('Incorrect email'));
       }
       return user.save();
-    }
-
-  })
+    })
 }
 
 const user = mongoose.model("users", userSchema);

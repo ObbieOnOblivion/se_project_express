@@ -1,14 +1,17 @@
 const jwt = require('jsonwebtoken');
 
+// const { JWT_SECRET } = require('../config'); // idea 2
+const handleError = require('../utils/error');
 const verifyToken = (req, res, next) => {
-   const token = req.body['Authorization'].replace('Bearer ', '');
+   const token = req.headers['authorization'].replace('Bearer ', '');
+
    if (!token) {
-     return res.status(401).send({ error: 'Please authenticate.' });
+     handleError(new Error("Unauthorized"))
    }
 
    jwt.verify(token, "Testing2024", (error, decoded) => {
       if (error) {
-        return res.status(401).send({ error: 'Invalid token.' });
+        handleError(new Error("Unauthorized"));
       }
       req.user = decoded;
       next();

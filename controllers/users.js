@@ -6,19 +6,13 @@ const user = require("../models/users");
 
 const errorHandler = require("../utils/error");
 
-//find by id function
-
-const getUsers = (req, res) => {
-  user.find({})
-    .orFail()
-    .then((users) => {
-      res.status(200)
-      res.send(users)
-    }).catch((error) => { errorHandler(error, res) })
-}
-
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
   const { email, password, name, avatar } = req.body;
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return new Error('Email already in use');
+  }
+
   bcrypt.hash(password, 12).then(hash => {
     user.create({ email: email, password: hash, "name": name, "avatar": avatar }).then((createdUser) => {
       res.status(201).send(createdUser);
@@ -37,6 +31,7 @@ const getUser = (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log(req.body.email, req.body.password)
     const response = await user.findUserByCredentials(req.body.email, req.body.password, bcrypt.compare);
     if (response) {
       const token = jwt.sign({ _id: response._id }, "Testing2024", {
@@ -46,6 +41,7 @@ const login = async (req, res) => {
     }
 
   } catch (error) {
+    console.log("we got thrown here")
     errorHandler(error, res);
   }
 }
@@ -60,4 +56,4 @@ const updateProfile = async (req, res) => {
   }
 };
 
-module.exports = { getUsers, createUser, getUser, login, updateProfile };
+module.exports = { createUser, getUser, login, updateProfile };

@@ -5,16 +5,18 @@ const clothesRouter = express.Router();
 const { getClothes, addClothes, getClothingItem, deleteClothingItem, likeImage, unlikeImage } =
   require('../controllers/clothingItems');
 
+const { verifyToken } = require('../middlewares/auth');
+
 clothesRouter.get('/items', getClothes);
 
-clothesRouter.get('/items/:itemId', getClothingItem);
+clothesRouter.get('/items/:itemId', verifyToken, getClothingItem);
 
-clothesRouter.post('/items', addClothes);
+clothesRouter.post('/items', verifyToken, addClothes); // addClothingItem
 
-clothesRouter.put('/items/:itemId/likes', likeImage);
+clothesRouter.put('/items/:itemId/likes', verifyToken, likeImage);
 
-clothesRouter.delete('/items/:itemId/likes', unlikeImage);
+clothesRouter.delete('/items/:itemId/likes', verifyToken, unlikeImage);
 
-clothesRouter.delete('/items/:itemId', deleteClothingItem);
+clothesRouter.delete('/items/:itemId',verifyToken, deleteClothingItem);
 
 module.exports = clothesRouter;
