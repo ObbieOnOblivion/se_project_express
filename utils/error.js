@@ -6,9 +6,6 @@ const INVALIDAUTH = 401
 const CONFLICT = 409;
 
 const handleErrors = (err, res) => {
-  if (res.headersSent) {
-    res.status(CONFLICT);
-  }
   if (err.name === 'CastError') {
     res.status(BAD_REQUEST).send({ message: err.message, name: err.name })
   }
