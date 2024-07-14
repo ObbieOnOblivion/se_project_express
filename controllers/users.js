@@ -12,49 +12,51 @@ const createUser = async (req, res) => {
   try {
     const existingUser = await user.findOne({ email });
     if (existingUser) {
-      return res.status(400).send({ message: 'Email already in use' });
+      return errorHandler(new Error('Email already in use'), res);
     }
 
     const hash = await bcrypt.hash(password, 12);
     const createdUser = await user.create({ email, password: hash, name, avatar });
-    res.status(201).send(createdUser);
+
+    const userObject = createdUser.toObject();
+    delete userObject.password;
+
+    return res.status(201).send(userObject);
   } catch (error) {
-    errorHandler(error, res);
+    return errorHandler(error, res);
   }
-  return null
 };
 
-const getUser = (req, res) => {
-  user.findById(req.user._id)
-    .orFail()
-    .then(item => res.status(200).send(item))
-    .catch(error => errorHandler(error, res));
-    return null
+const getUser = async (req, res) => {
+  try {
+    const indivisual = await user.findById(req.user._id).orFail();
+    return res.status(200).send(indivisual);
+  } catch (error) {
+    return errorHandler(error, res);
+  }
 };
 
 const login = async (req, res) => {
   try {
     const response = await user.findUserByCredentials(req.body.email, req.body.password, bcrypt.compare);
     if (response) {
-      const token = jwt.sign({ _id: response._id }, "Testing2024", { expiresIn: "7d" });
+      const token = jwt.sign({ _id: response._id }, 'Testing2024', { expiresIn: "7d" });
       return res.status(200).send({ token });
     }
-    return res.status(401).send({ message: 'Authentication failed' });
+    return res.status(401).send({ message: 'Authentication failed' }); // needs to be fixed
   } catch (error) {
-    errorHandler(error, res);
+    return errorHandler(error, res);
   }
-  return null
 };
 
 const updateProfile = async (req, res) => {
   try {
     const { name, avatar } = req.body;
     const updatedUser = await user.changeUserCredentials(req.user._id, name, avatar);
-    res.status(200).send(updatedUser);
+    return res.status(200).send(updatedUser);
   } catch (error) {
-    errorHandler(error, res);
+    return errorHandler(error, res);
   }
-  return null
 };
 
 module.exports = { createUser, getUser, login, updateProfile };

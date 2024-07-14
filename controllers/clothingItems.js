@@ -27,17 +27,20 @@ const getClothingItem = (req, res) => {
     .then(item => res.status(200).send(item))
     .catch(error => errorHandler(error, res));
 };
-
 const deleteClothingItem = async (req, res) => {
   const { itemId } = req.params;
-  const item = await clothes.findById(itemId);
 
-  if (item.owner.toString() === req.user._id.toString()) {
-    clothes.findByIdAndDelete(itemId)
-      .then(() => res.send(`${itemId}`))
-      .catch(error => errorHandler(error, res));
-  } else {
-    errorHandler(new Error('Unauthorized'), res);
+  try {
+    const item = await clothes.findById(itemId).orFail();
+
+    if (item.owner.toString() === req.user._id.toString()) {
+      await clothes.findByIdAndDelete(itemId);
+      res.send(itemId);
+    } else {
+      throw new Error('Unauthorized');
+    }
+  } catch (error) {
+    errorHandler(error, res);
   }
 };
 

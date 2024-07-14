@@ -62,13 +62,13 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(email,
 
 }
 
-userSchema.statics.changeUserCredentials = function changeUserCredentials(userId, name = "", avatar = "") {
+userSchema.statics.changeUserCredentials = function changeUserCredentials(userId, name, avatar) {
   return this.findByIdAndUpdate(userId, { "name": name, "avatar": avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         return Promise.reject(new Error('Incorrect email'));
       }
-      return user.save();
+      return user
     })
 }
 
