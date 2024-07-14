@@ -17,6 +17,6 @@ clothesRouter.put('/items/:itemId/likes', verifyToken, likeImage);
 
 clothesRouter.delete('/items/:itemId/likes', verifyToken, unlikeImage);
 
-clothesRouter.delete('/items/:itemId',verifyToken, deleteClothingItem);
+clothesRouter.delete('/items/:itemId', verifyToken, deleteClothingItem);
 
 module.exports = clothesRouter;

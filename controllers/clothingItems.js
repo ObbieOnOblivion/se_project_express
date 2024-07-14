@@ -35,7 +35,7 @@ const deleteClothingItem = async (req, res) => {
 
     if (item.owner.toString() === req.user._id.toString()) {
       await clothes.findByIdAndDelete(itemId);
-      res.send(itemId);
+      res.send({ itemId });
     } else {
       throw new Error('Unauthorized');
     }

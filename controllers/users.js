@@ -39,11 +39,11 @@ const getUser = async (req, res) => {
 const login = async (req, res) => {
   try {
     const response = await user.findUserByCredentials(req.body.email, req.body.password, bcrypt.compare);
-    if (response) {
-      const token = jwt.sign({ _id: response._id }, 'Testing2024', { expiresIn: "7d" });
-      return res.status(200).send({ token });
+    if (!response) {
+      return errorHandler('Invalid credentials');
     }
-    return res.status(401).send({ message: 'Authentication failed' }); // needs to be fixed
+    const token = jwt.sign({ _id: response._id }, 'Testing2024', { expiresIn: "7d" });
+    return res.status(200).send({ token });
   } catch (error) {
     return errorHandler(error, res);
   }

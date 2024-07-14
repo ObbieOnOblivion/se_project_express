@@ -5,7 +5,7 @@ const errorHandler = require("../utils/error")
 
 router.use(clothesRouter);
 router.use(usersRouter);
-router.use((req,res) =>{
+router.use((req, res) => {
   errorHandler(new Error("Route not found"), res)
 })
 

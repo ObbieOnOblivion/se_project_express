@@ -1,16 +1,17 @@
+
 const jwt = require('jsonwebtoken');
 
-const handleError = require('../utils/error');
+const errorHandler = require('../utils/error');
 
 const verifyToken = (req, res, next) => {
   const { authorization } = req.headers
   if (!authorization) {
-    handleError(new Error("Unauthorized"))
+    errorHandler(new Error("Unauthorized"), res)
   }
-
-  jwt.verify(authorization, 'Testing2024', (error, decoded) => {
+  const token = authorization.replace('Bearer ', '');
+  jwt.verify(token, 'Testing2024', (error, decoded) => {
     if (error) {
-      handleError(new Error("Unauthorized"));
+      errorHandler(new Error("Unauthorized"), res);
     }
     req.user = decoded;
     next();
@@ -18,5 +19,7 @@ const verifyToken = (req, res, next) => {
 }
 
 module.exports = { verifyToken }
+
+
 
 
