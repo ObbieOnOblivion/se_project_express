@@ -2,6 +2,7 @@ const BAD_REQUEST = 400;
 const DEFAULT = 500;
 const NOT_FOUND = 404;
 const INVALIDAUTH = 401
+const FORBIDEN = 403
 const CONFLICT = 409;
 
 const handleErrors = (err, res) => {
@@ -25,6 +26,9 @@ const handleErrors = (err, res) => {
   }
   if (err.message === 'Email already in use') {
     return res.status(CONFLICT).send({ message: err.message, name: err.name })
+  }
+  if (err.message === 'Forbidden'){
+    return res.status(FORBIDEN).send({ message: err.message, name: err.name})
   }
   if (err.message === 'Unauthorized') {
     return res.status(INVALIDAUTH).send({ message: err.message, name: err.name })

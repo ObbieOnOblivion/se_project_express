@@ -37,7 +37,7 @@ const deleteClothingItem = async (req, res) => {
       await clothes.findByIdAndDelete(itemId);
       res.send({ itemId });
     } else {
-      throw new Error('Unauthorized');
+      throw new Error('Forbidden');
     }
   } catch (error) {
     errorHandler(error, res);
