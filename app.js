@@ -30,6 +30,7 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
   };
 
+app.options('*', cors());
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
