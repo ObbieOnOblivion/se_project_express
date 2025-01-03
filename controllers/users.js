@@ -14,7 +14,7 @@ const createUser = async (req, res, next) => {
 
     }
 
-    const hash = await bcrypt.hash(password, 12);
+    const hash = await bcrypt.hash(password, 12); // feel like im new, i want to look at that user object
     const createdUser = await user.create({ email, password: hash, name, avatar });
 
     const userObject = createdUser.toObject();

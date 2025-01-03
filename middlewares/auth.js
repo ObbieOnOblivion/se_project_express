@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
       return handleErrors(new Error("Unauthorized"), res); // Call handleErrors
     }
     
-    req.user = decoded;
+    req.user = decoded; 
     next();
   });
 };

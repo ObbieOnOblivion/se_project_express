@@ -10,7 +10,7 @@ const {
   validateUserInfo,
   validateUserLogin,
   validateId,
-} = require('../middlewares/validation');  // Assuming this is the file where your validators are stored
+} = require('../middlewares/validation');
 
 
 const { verifyToken } = require('../middlewares/auth');
