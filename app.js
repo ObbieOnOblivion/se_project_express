@@ -23,12 +23,25 @@ const { PORT = 3001 } = process.env
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/wtwr_db');
+const allowedOrigins = [
+  'https://obbiesproject.ohbah.com',
+  'https://www.obbiesproject.ohbah.com',
+
+];
 
 const corsOptions = {
-    origin: 'https://obbiesproject.ohbah.com', // Your frontend origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-  };
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      // Allow requests from allowed origins or no origin (e.g., same-origin requests)
+      callback(null, true);
+    } else {
+      // Reject requests from disallowed origins
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 
 app.options('*', cors());
 app.use(cors(corsOptions));
