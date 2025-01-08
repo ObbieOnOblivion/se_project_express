@@ -10,11 +10,11 @@ const createUser = async (req, res, next) => {
   try {
     const existingUser = await user.findOne({ email });
     if (existingUser) {
-      return errors.handleErrors(new Error('Email already in use'), res); // should i be using Next();
+      return errors.handleErrors(new Error('Email already in use'), res);
 
     }
 
-    const hash = await bcrypt.hash(password, 12); // feel like im new, i want to look at that user object
+    const hash = await bcrypt.hash(password, 12);
     const createdUser = await user.create({ email, password: hash, name, avatar });
 
     const userObject = createdUser.toObject();

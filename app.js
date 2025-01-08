@@ -1,7 +1,7 @@
 
 const express = require('express');
 
-const {errorHandler} = require('./middlewares/errorHandler');//this 
+const {errorHandler} = require('./middlewares/errorHandler');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -32,10 +32,8 @@ const allowedOrigins = [
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
-      // Allow requests from allowed origins or no origin (e.g., same-origin requests)
       callback(null, true);
     } else {
-      // Reject requests from disallowed origins
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -56,4 +54,3 @@ app.use(errorHandler);
 
 app.listen(PORT);
 
-//make sure to connect pm2
