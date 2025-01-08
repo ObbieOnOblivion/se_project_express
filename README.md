@@ -2,6 +2,8 @@ Description
 
 The SE Project Express is a back-end project focused on creating a server for the WTWR application. The project aims to provide a deeper understanding of working with databases, setting up security, and deploying web applications on a remote machine. The server includes an API with user authorization.
 
+Domain Location: https://obbiesproject.ohbah.com
+
 Features and usage: 
 1. Clone the repository: .zsh
    git clone https://github.com/ObbieOnOblivion/se_project_express.git
