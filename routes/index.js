@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const usersRouter = require("./users");
 const clothesRouter = require("./clothingItems");
-const errorHandler = require("../utils/error")
+const {handleErrors, InternalServerError} = require("../utils/errors/index")
 
 router.use(clothesRouter);
 router.use(usersRouter);
@@ -11,7 +11,7 @@ router.get('/crash-test', () => {
   }, 0);
 });
 router.use((req, res) => {
-  errorHandler(new Error("Route not found"), res)
+  handleErrors(new InternalServerError, res)
 })
 
 module.exports = router;

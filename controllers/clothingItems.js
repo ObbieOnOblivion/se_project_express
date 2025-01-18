@@ -1,5 +1,5 @@
 const clothes = require('../models/clothingItems');
-const errorHandler = require('../utils/error');
+const errorHandler = require('../utils/errors');
 
 const getClothes = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ const getClothes = async (req, res) => {
     if (error.name === "CastError") {
       next(new errorHandler.BadRequestError("The id string is in an invalid format"));
     } else {
-      next(error);
+      next(error); 
     }  }
 };
 

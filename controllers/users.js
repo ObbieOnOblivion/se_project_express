@@ -2,7 +2,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const user = require("../models/users");
-const errors = require("../utils/error");
+const errors = require("../utils/errors");
 const {JWT_SECRET} = require("../utils/config");
 
 const createUser = async (req, res, next) => {
@@ -68,8 +68,8 @@ const updateProfile = async (req, res, next) => {
     const updatedUser = await user.changeUserCredentials(req.user._id, name, avatar);
     return res.status(200).send(updatedUser);
   } catch (error) {
-    if (error.name === "CastError") {
-      next(new BadRequestError("The id string is in an invalid format"));
+    if (error.name === "ValidationError") {
+      next(new BadRequestError("Invalid data"));
     } else {
       next(error);    
     }

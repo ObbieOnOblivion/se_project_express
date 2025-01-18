@@ -1,4 +1,4 @@
-const { Joi, celebrate } = require('celebrate');
+const { celebrate, Joi, Segments } = require('celebrate');
 const validator = require('validator');
 
 const validateURL = (value, helpers) => {
@@ -11,6 +11,7 @@ const validateURL = (value, helpers) => {
 const validateClothingItem = celebrate({
     body: Joi.object().keys({
         name: Joi.string().min(2).max(30).required(),
+        weather: Joi.string().valid('hot', 'warm', 'cold').required(),
         imageUrl: Joi.string().required().custom(validateURL).messages({
             'string.empty': 'The "imageUrl" field must be filled in',
             'string.uri': 'the "imageUrl" field must be a valid url',
@@ -34,11 +35,20 @@ const validateUserLogin = celebrate({
     }),
 });
 
-const validateId = celebrate({
-    params: Joi.object().keys({
-        itemId: Joi.string().hex().length(24).required(),
-        userId: Joi.string().hex().length(24).required(),
-    }),
-});
+const validateUserInfoToUpdate = celebrate({
+    body: Joi.object().keys({
+        name: Joi.string().min(2).max(30),
+        avatar: Joi.string().uri().required()
+    })
+})
 
-module.exports = { validateClothingItem, validateUserInfo, validateUserLogin, validateId };
+
+const validateItemIdInHeaders = celebrate({
+    [Segments.HEADERS]: Joi.object({
+      itemid: Joi.string().hex().length(24).required(),
+    }).unknown(true), // Allows other headers to remain
+  });
+
+module.exports = { validateClothingItem, validateUserInfo, validateUserLogin, validateItemIdInHeaders,
+    validateUserInfoToUpdate
+ };
