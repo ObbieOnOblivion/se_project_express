@@ -45,7 +45,7 @@ const validateUserInfoToUpdate = celebrate({
 
 const validateItemIdInHeaders = celebrate({
     [Segments.HEADERS]: Joi.object({
-      itemid: Joi.string().hex().length(24).required(),
+      _id: Joi.string().hex().length(24).required(),
     }).unknown(true), // Allows other headers to remain
   });
 
