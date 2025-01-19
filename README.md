@@ -35,3 +35,10 @@ PUT /items/
 /likes: Add a like to a clothing item.
 DELETE /items/
 /likes: Remove a like from a clothing item.
+
+
+*** Helpful Reminders ***
+
+-- to restart pm2 use command { pm2 restart all }
+-- to restart nginx use both commands { sudo systemctl restart nginx, sudo nginx -t }
+-- to reload pm2 use { pm2 reload app }
