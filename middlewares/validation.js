@@ -1,7 +1,11 @@
 const { celebrate, Joi, Segments } = require('celebrate'); 
 const validator = require('validator');
+// why is my project so slow on the frontend
+// why does my frontend suck 
+// why doesent the mobile version work
 
-const validateURL = (value, helpers) => {
+
+const validateURL = (value, helpers) => { // what is helpers doing
     if (validator.isURL(value)) {
         return value;
     }
@@ -15,8 +19,7 @@ const validateClothingItem = celebrate({
         imageUrl: Joi.string().required().custom(validateURL).messages({
             'string.empty': 'The "imageUrl" field must be filled in',
             'string.uri': 'the "imageUrl" field must be a valid url',
-        }),
-        owner: Joi.string().min(2).max(30).required()
+        }).unknown(true),
     })
 });
 

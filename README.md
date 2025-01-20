@@ -40,5 +40,5 @@ DELETE /items/
 *** Helpful Reminders ***
 
 -- to restart pm2 use command { pm2 restart all }
--- to restart nginx use both commands { sudo systemctl restart nginx, sudo nginx -t }
+-- to restart nginx use command { sudo systemctl restart nginx && sudo nginx -t }
 -- to reload pm2 use { pm2 reload app }

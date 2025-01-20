@@ -4,7 +4,7 @@ const { verifyToken } = require('../middlewares/auth');
 
 const { createUser, getUser, login, updateProfile } = require('../controllers/users');
 
-const {
+const { // lean this up a little if you can 
     validateClothingItem,
     validateUserInfo,
     validateUserLogin,
