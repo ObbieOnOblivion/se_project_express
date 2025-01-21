@@ -5,8 +5,10 @@ const { verifyToken } = require('../middlewares/auth');
 const { createUser, getUser, login, updateProfile } = require('../controllers/users');
 
 const {
+    validateClothingItem,
     validateUserInfo,
     validateUserLogin,
+    validateId,
     validateUserInfoToUpdate
   } = require('../middlewares/validation');
 
