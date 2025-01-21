@@ -5,10 +5,8 @@ const clothesRouter = express.Router();
 const { getClothes, addClothes, getClothingItem, deleteClothingItem, likeImage, unlikeImage } =
   require('../controllers/clothingItems');
 
-const { // try to see if you can lean this up a little 
+const {
   validateClothingItem,
-  validateUserInfo,
-  validateUserLogin,
   validateItemIdInHeaders
 } = require('../middlewares/validation');
 

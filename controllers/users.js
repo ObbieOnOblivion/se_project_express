@@ -23,7 +23,7 @@ const createUser = async (req, res, next) => {
     return res.status(201).send(userObject);
   } catch (error) {
     if (error.name === "CastError") {
-      next(new BadRequestError("The id string is in an invalid format"));
+      next(new errors.BadRequestError("The id string is in an invalid format"));
     } else {
       next(error);
     }
@@ -36,7 +36,7 @@ const getUser = async (req, res, next) => {
     return res.status(200).send(individual);
   } catch (error) {
     if (error.name === "CastError") {
-      next(new BadRequestError("The id string is in an invalid format"));
+      next(new errors.BadRequestError("The id string is in an invalid format"));
     } else {
       next(error);    
     }
@@ -47,7 +47,7 @@ const login = async (req, res, next) => {
   try {
     const response = await user.findUserByCredentials(req.body.email, req.body.password, bcrypt.compare);
     if (!response) {
-      return errorHandler('Invalid credentials');
+      return errors.errorHandler('Invalid credentials');
     }    
 
     const token = jwt.sign({ _id: response._id }, JWT_SECRET, { expiresIn: "7d" });
@@ -55,7 +55,7 @@ const login = async (req, res, next) => {
     return res.status(200).send({ token: token });
   } catch (error) {
     if (error.name === "CastError") {
-      next(new BadRequestError("The id string is in an invalid format"));
+      next(new errors.BadRequestError("The id string is in an invalid format"));
     } else {
       next(error);    
     }
@@ -69,7 +69,7 @@ const updateProfile = async (req, res, next) => {
     return res.status(200).send(updatedUser);
   } catch (error) {
     if (error.name === "ValidationError") {
-      next(new BadRequestError("Invalid data"));
+      next(new errors.BadRequestError("Invalid data"));
     } else {
       next(error);    
     }

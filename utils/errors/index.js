@@ -7,7 +7,7 @@ const ForbiddenError = require('./ForbiddenError');
 const ConflictError = require('./ConflictError');
 const InternalServerError = require('./InternalServerError');
 
-const handleErrors = (err, res) => {
+const handleErrors = (err) => {
   if (err instanceof NotFoundError ||
     err instanceof BadRequestError ||
     err instanceof UnauthorizedError ||
