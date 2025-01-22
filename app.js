@@ -50,8 +50,8 @@ const limiter = rateLimit({
 })
 
 app.options('*', cors());
-app.use(cors(corsOptions));
-app.use(limiter)
+// app.use(cors(corsOptions));
+// app.use(limiter)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
