@@ -49,7 +49,7 @@ const limiter = rateLimit({
 	// store: ... , // Redis, Memcached, etc. See below.
 })
 
-app.options('*', cors());
+// app.options('*', cors());
 // app.use(cors(corsOptions));
 // app.use(limiter)
 app.use(bodyParser.json());
@@ -57,7 +57,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use("/", Router);
 app.use(errorLogger);
-app.use(errors());
+app.use(errors()); // does this even work 
+// i want to have an error handler for everything not just the routers 
 app.use(errorHandler);
 
 
