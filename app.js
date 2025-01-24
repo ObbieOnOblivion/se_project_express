@@ -57,7 +57,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use("/", Router);
 app.use(errorLogger);
-app.use(errors()); // does this even work 
+// app.use(errors()); // does this even work 
 // i want to have an error handler for everything not just the routers 
 app.use(errorHandler);
 
