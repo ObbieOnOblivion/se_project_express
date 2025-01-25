@@ -50,14 +50,27 @@ const limiter = rateLimit({
 })
 
 // app.options('*', cors());
-// app.use(cors(corsOptions));
-// app.use(limiter)
+app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    'https://obbiesproject.ohbah.com',
+    'https://www.obbiesproject.ohbah.com',
+  ];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  }
+  next();
+});
+app.use(limiter)
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use("/", Router);
 app.use(errorLogger);
-// app.use(errors()); // does this even work 
+app.use(errors()); // does this even work 
 // i want to have an error handler for everything not just the routers 
 app.use(errorHandler);
 
