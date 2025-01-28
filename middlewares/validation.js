@@ -3,6 +3,7 @@ const validator = require('validator');
 // why is my project so slow on the frontend
 // why does my frontend suck 
 // why doesent the mobile version work
+// not to self: use regex when you can to simlify things 
 
 
 const validateURL = (value, helpers) => { // what is helpers doing
@@ -11,19 +12,21 @@ const validateURL = (value, helpers) => { // what is helpers doing
     }
     return helpers.error('string.uri');
 }
+const objectIdPattern = /^[0-9a-fA-F]{24}$/;
 
 const validateClothingItem = celebrate({
-    body: Joi.object().keys({
-      _id: Joi.string().optional(),
-      owner: Joi.string().optional(),
-      name: Joi.string().min(2).max(30).required(),
-      weather: Joi.string().valid('hot', 'warm', 'cold').required(),
-      imageUrl: Joi.string().required().custom(validateURL).messages({
-        'string.empty': 'The "imageUrl" field must be filled in',
-        'string.uri': 'The "imageUrl" field must be a valid URL',
-      }),
+  body: Joi.object().keys({
+    _id: Joi.string().pattern(objectIdPattern).optional(),
+    owner: Joi.string().pattern(objectIdPattern).optional(),
+    name: Joi.string().min(2).max(30).required(),
+    weather: Joi.string().valid('hot', 'warm', 'cold').required(),
+    imageUrl: Joi.string().required().custom(validateURL).messages({
+      'string.empty': 'The "imageUrl" field must be filled in',
+      'string.pattern.base': 'The "imageUrl" field must be a valid URL',
     }),
-  });
+  }),
+});
+
   
 
 const validateUserInfo = celebrate({
