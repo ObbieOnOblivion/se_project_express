@@ -48,13 +48,12 @@ const validateUserInfoToUpdate = celebrate({
     })
 })
 
-
-const validateItemIdInHeaders = celebrate({ // think about validating the params instead 
-    [Segments.HEADERS]: Joi.object({
+  const validateItemIdInParams = celebrate({
+    [Segments.PARAMS]: Joi.object({
       _id: Joi.string().hex().length(24).required(),
-    })
+    }),
   });
 
-module.exports = { validateClothingItem, validateUserInfo, validateUserLogin, validateItemIdInHeaders,
+module.exports = { validateClothingItem, validateUserInfo, validateUserLogin, validateItemIdInParams,
     validateUserInfoToUpdate
  };
