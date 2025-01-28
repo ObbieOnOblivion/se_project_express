@@ -21,7 +21,7 @@ const validateClothingItem = celebrate({
         'string.empty': 'The "imageUrl" field must be filled in',
         'string.uri': 'The "imageUrl" field must be a valid URL',
       }),
-      likes: Joi.boolean().optional(),
+      likes: Joi.string().optional(),
     }),
   });
 
