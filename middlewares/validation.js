@@ -10,9 +10,9 @@ const validateURL = (value, helpers) => {
 const validateClothingItem = celebrate({
     body: Joi.object().keys({
       _id: Joi.alternatives().try(
-        Joi.string().pattern(/^[0-9a-fA-F]{24}$/), // MongoDB ObjectId
-        Joi.number().integer(), // Integer ID
-        Joi.string().uuid() // UUID
+        Joi.string().pattern(/^[0-9a-fA-F]{24}$/), 
+        Joi.number().integer(), 
+        Joi.string().uuid()
       ).optional(),
       owner: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).optional(),
       name: Joi.string().min(2).max(30).required(),
