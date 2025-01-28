@@ -9,7 +9,7 @@ const {
   validateClothingItem,
   validateUserInfo,
   validateUserLogin,
-  validateItemIdInHeaders
+  validateItemIdInParams
 } = require('../middlewares/validation');
 
 
@@ -21,10 +21,10 @@ clothesRouter.get('/items/:itemId', verifyToken, getClothingItem);
 
 clothesRouter.post('/items', verifyToken, validateClothingItem, addClothes);
 
-clothesRouter.put('/items/:itemId/likes', validateItemIdInHeaders, verifyToken, likeImage);
+clothesRouter.put('/items/:itemId/likes', validateItemIdInParams, verifyToken, likeImage);
 
-clothesRouter.delete('/items/:itemId/likes', validateItemIdInHeaders, verifyToken, unlikeImage);
+clothesRouter.delete('/items/:itemId/likes', validateItemIdInParams, verifyToken, unlikeImage);
 
-clothesRouter.delete('/items/:itemId', validateItemIdInHeaders, verifyToken, deleteClothingItem);
+clothesRouter.delete('/items/:itemId', validateItemIdInParams, verifyToken, deleteClothingItem);
 
 module.exports = clothesRouter;

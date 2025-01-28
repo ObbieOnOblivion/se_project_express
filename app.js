@@ -39,7 +39,7 @@ const corsOptions = {
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  // allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
