@@ -50,7 +50,7 @@ const validateUserInfoToUpdate = celebrate({
 
   const validateItemIdInParams = celebrate({
     [Segments.PARAMS]: Joi.object({
-      _id: Joi.string().hex().length(24).required(),
+        itemId: Joi.string().hex().length(24).required(),
     }),
   });
 
