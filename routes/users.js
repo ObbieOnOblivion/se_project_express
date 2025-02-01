@@ -18,7 +18,7 @@ usersRouter.post('/signup',validateUserInfo, createUser);
 
 usersRouter.post('/signin',validateUserLogin, login);
 
-usersRouter.get('/users/me', verifyToken, validateUserInfoToUpdate, getUser);
+usersRouter.get('/users/me', verifyToken, getUser);
 
 usersRouter.patch('/users/me', verifyToken, validateUserInfoToUpdate, updateProfile);
 

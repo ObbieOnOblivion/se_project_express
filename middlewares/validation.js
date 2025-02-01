@@ -9,19 +9,12 @@ const validateURL = (value, helpers) => {
 }
 const validateClothingItem = celebrate({
     body: Joi.object().keys({
-      _id: Joi.alternatives().try(
-        Joi.string().pattern(/^[0-9a-fA-F]{24}$/), 
-        Joi.number().integer(), 
-        Joi.string().uuid()
-      ).optional(),
-      owner: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).optional(),
       name: Joi.string().min(2).max(30).required(),
       weather: Joi.string().valid('hot', 'warm', 'cold').required(),
       imageUrl: Joi.string().required().custom(validateURL).messages({
         'string.empty': 'The "imageUrl" field must be filled in',
         'string.uri': 'The "imageUrl" field must be a valid URL',
       }),
-      likes: Joi.any(),
     }),
   });
 

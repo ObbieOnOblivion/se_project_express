@@ -21,10 +21,10 @@ clothesRouter.get('/items/:itemId', verifyToken, getClothingItem);
 
 clothesRouter.post('/items', verifyToken, validateClothingItem, addClothes);
 
-clothesRouter.put('/items/:itemId/likes', validateItemIdInParams, verifyToken, likeImage);
+clothesRouter.put('/items/:itemId/likes', verifyToken, validateItemIdInParams, likeImage);
 
-clothesRouter.delete('/items/:itemId/likes', validateItemIdInParams, verifyToken, unlikeImage);
+clothesRouter.delete('/items/:itemId/likes', verifyToken, validateItemIdInParams, unlikeImage);
 
-clothesRouter.delete('/items/:itemId', validateItemIdInParams, verifyToken, deleteClothingItem);
+clothesRouter.delete('/items/:itemId', verifyToken, validateItemIdInParams, deleteClothingItem);
 
 module.exports = clothesRouter;
