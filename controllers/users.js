@@ -10,7 +10,7 @@ const createUser = async (req, res, next) => {
   try {
     const existingUser = await user.findOne({ email });
     if (existingUser) {
-      return errors.handleErrors(new Error('Email already in use'), res);
+      next( new errors.ConflictError("Email already in use"));
 
     }
 

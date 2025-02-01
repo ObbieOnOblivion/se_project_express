@@ -55,7 +55,7 @@ const deleteClothingItem = async (req, res, next) => {
       await clothes.findByIdAndDelete(itemId);
       res.send({ itemId });
     } else {
-      throw new Error('Forbidden');
+      next(new errorHandler.ForbiddenError("Unauthorized Action"));
     }
   } catch (error) {
     if (error.name === "CastError") {
