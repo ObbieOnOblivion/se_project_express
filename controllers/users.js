@@ -3,14 +3,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const user = require("../models/users");
 const errors = require("../utils/errors");
-const {JWT_SECRET} = require("../utils/config");
+const { JWT_SECRET } = require("../utils/config");
 
 const createUser = async (req, res, next) => {
   const { email, password, name, avatar } = req.body;
   try {
     const existingUser = await user.findOne({ email });
     if (existingUser) {
-      next( new errors.ConflictError("Email already in use"));
+      next(new errors.ConflictError("Email already in use"));
 
     }
 
@@ -22,7 +22,7 @@ const createUser = async (req, res, next) => {
 
     return res.status(201).send(userObject);
   } catch (error) {
-    if (error.name === "CastError") {
+    if (error.name === "ValidationError") {
       next(new errors.BadRequestError("The id string is in an invalid format"));
     } else {
       next(error);
@@ -35,10 +35,10 @@ const getUser = async (req, res, next) => {
     const individual = await user.findById(req.user._id).orFail();
     return res.status(200).send(individual);
   } catch (error) {
-    if (error.name === "CastError") {
+    if (err.name === "DocumentNotFoundError") {
       next(new errors.BadRequestError("The id string is in an invalid format"));
     } else {
-      next(error);    
+      next(error);
     }
   }
 };
@@ -47,17 +47,17 @@ const login = async (req, res, next) => {
   try {
     const response = await user.findUserByCredentials(req.body.email, req.body.password, bcrypt.compare);
     if (!response) {
-      return errors.errorHandler('Invalid credentials');
-    }    
+      next(new errors.UnauthorizedError("Invalid Credentials"));
+    }
 
     const token = jwt.sign({ _id: response._id }, JWT_SECRET, { expiresIn: "7d" });
-    
-    return res.status(200).send({ token: token });
+
+    return res.status(200).send({ token });
   } catch (error) {
     if (error.name === "CastError") {
       next(new errors.BadRequestError("The id string is in an invalid format"));
     } else {
-      next(error);    
+      next(error);
     }
   }
 };
@@ -71,7 +71,7 @@ const updateProfile = async (req, res, next) => {
     if (error.name === "ValidationError") {
       next(new errors.BadRequestError("Invalid data"));
     } else {
-      next(error);    
+      next(error);
     }
   }
 };

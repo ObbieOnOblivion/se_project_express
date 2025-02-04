@@ -9,8 +9,9 @@ const getClothes = async (req, res) => {
     if (error.name === "CastError") {
       next(new errorHandler.BadRequestError("The id string is in an invalid format"));
     } else {
-      next(error); 
-    }  }
+      next(error);
+    }
+  }
 };
 
 const addClothes = async (req, res, next) => {
@@ -24,7 +25,7 @@ const addClothes = async (req, res, next) => {
     });
     res.status(201).send(newItem);
   } catch (error) {
-    if (error.name === "CastError") {
+    if (error.name === "ValidationError") {
       next(new errorHandler.BadRequestError("The id string is in an invalid format"));
     } else {
       next(error);
@@ -58,7 +59,7 @@ const deleteClothingItem = async (req, res, next) => {
       next(new errorHandler.ForbiddenError("Unauthorized Action"));
     }
   } catch (error) {
-    if (error.name === "CastError") {
+    if (err.name === "DocumentNotFoundError") {
       next(new errorHandler.BadRequestError("The id string is in an invalid format"));
     } else {
       next(error);
@@ -76,7 +77,7 @@ const likeImage = async (req, res, next) => {
     ).orFail();
     res.status(200).send(updatedClothes);
   } catch (error) {
-    if (error.name === "CastError") {
+    if (err.name === "DocumentNotFoundError") {
       next(new errorHandler.BadRequestError("The id string is in an invalid format"));
     } else {
       next(error);
@@ -94,7 +95,7 @@ const unlikeImage = async (req, res, next) => {
     ).orFail();
     res.status(200).send(updatedClothes);
   } catch (error) {
-    if (error.name === "CastError") {
+    if (err.name === "DocumentNotFoundError") {
       next(new errorHandler.BadRequestError("The id string is in an invalid format"));
     } else {
       next(error);

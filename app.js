@@ -4,9 +4,7 @@ const {rateLimit} = require('express-rate-limit');
 
 const express = require('express');
 
-const {errorHandler} = require('./middlewares/errorHandler');
 
-const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { celebrate, Joi, errors } = require('celebrate');
 
@@ -15,6 +13,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const cors = require("cors");
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const {errorHandler} = require('./middlewares/errorHandler');
 
 const Router = require('./routes/index');
 
@@ -55,7 +55,7 @@ app.use((req, res, next) => {
     'https://obbiesproject.ohbah.com',
     'https://www.obbiesproject.ohbah.com',
   ];
-  const origin = req.headers.origin;
+  const {origin} = req.headers;
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
