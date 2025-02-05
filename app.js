@@ -6,7 +6,7 @@ const express = require('express');
 
 
 
-const { celebrate, Joi, errors } = require('celebrate');
+const { errors } = require('celebrate');
 
 const mongoose = require('mongoose');
 
@@ -51,10 +51,6 @@ const limiter = rateLimit({
 app.options('*', cors());
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    'https://obbiesproject.ohbah.com',
-    'https://www.obbiesproject.ohbah.com',
-  ];
   const {origin} = req.headers;
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);

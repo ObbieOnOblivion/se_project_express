@@ -6,7 +6,7 @@
   "plugins": [],
   "rules": {
     "prettier/prettier": "error",
-    "camelcase": [
+    "no-underscore-dangle": [
       "error",
       {
         "allow": [
