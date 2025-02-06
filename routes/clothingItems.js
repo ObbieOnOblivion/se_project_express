@@ -7,8 +7,6 @@ const { getClothes, addClothes, getClothingItem, deleteClothingItem, likeImage, 
 
 const {
   validateClothingItem,
-  validateUserInfo,
-  validateUserLogin,
   validateItemIdInParams
 } = require('../middlewares/validation');
 

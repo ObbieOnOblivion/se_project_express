@@ -5,7 +5,6 @@
   ],
   "plugins": [],
   "rules": {
-    "prettier/prettier": "error",
     "no-underscore-dangle": [
       "error",
       {
