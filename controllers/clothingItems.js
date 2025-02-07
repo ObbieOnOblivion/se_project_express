@@ -60,7 +60,7 @@ const deleteClothingItem = async (req, res, next) => {
     }
   } catch (error) {
     if (error.name === "DocumentNotFoundError") {
-      next(new errorHandler.BadRequestError("The id string is in an invalid format"));
+      next(new errorHandler.NotFoundError("The id string is in an invalid format"));
     } else {
       next(error);
     }
@@ -78,7 +78,7 @@ const likeImage = async (req, res, next) => {
     res.status(200).send(updatedClothes);
   } catch (error) {
     if (error.name === "DocumentNotFoundError") {
-      next(new errorHandler.BadRequestError("The id string is in an invalid format"));
+      next(new errorHandler.NotFoundError("The id string is in an invalid format"));
     } else {
       next(error);
     }
@@ -96,7 +96,7 @@ const unlikeImage = async (req, res, next) => {
     res.status(200).send(updatedClothes);
   } catch (error) {
     if (error.name === "DocumentNotFoundError") {
-      next(new errorHandler.BadRequestError("The id string is in an invalid format"));
+      next(new errorHandler.NotFoundError("The id string is in an invalid format"));
     } else {
       next(error);
     }

@@ -21,7 +21,7 @@ const createUser = async (req, res, next) => {
     return res.status(201).send(userObject);
   } catch (error) {
     if (error.name === "ValidationError") {
-      return next(new errors.BadRequestError("The id string is in an invalid format"));
+      return next(new errors.ForbiddenError("The id string is in an invalid format"));
     }
     return next(error);
   }
@@ -33,7 +33,7 @@ const getUser = async (req, res, next) => {
     return res.status(200).send(individual);
   } catch (error) {
     if (error.name === "DocumentNotFoundError") {
-      return next(new errors.BadRequestError("The id string is in an invalid format"));
+      return next(new errors.NotFoundError("The id string is in an invalid format"));
     }
     return next(error);
   }

@@ -4,8 +4,6 @@ const {rateLimit} = require('express-rate-limit');
 
 const express = require('express');
 
-
-
 const { errors } = require('celebrate');
 
 const mongoose = require('mongoose');
@@ -13,7 +11,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const cors = require("cors");
+
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 const {errorHandler} = require('./middlewares/errorHandler');
 
 const Router = require('./routes/index');
