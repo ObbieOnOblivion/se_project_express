@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { UnauthorizedError } = require('../utils/errors');
 
 const userSchema = new mongoose.Schema({ 
   email: {
